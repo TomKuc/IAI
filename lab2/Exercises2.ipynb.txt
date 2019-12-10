@@ -1,0 +1,419 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Classification"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This exercise consists of three parts. Finish the first part to get a mark of 3.0; the first two parts for 4.0. Complete all three parts to get 5.0."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "import common as cm\n",
+    "import numpy as np\n",
+    "import matplotlib.pyplot as plt"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Part 1: Naive Bayes for binary data"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1.1 ) Given are the following objects (data) characterized with 4 binary attributes:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "data = [\n",
+    "[1, 0, 1, 1],\n",
+    "[0, 1, 0, 0],\n",
+    "[0, 1, 1, 1],\n",
+    "[1, 0, 1, 0],\n",
+    "[1, 0, 0, 1],\n",
+    "[0, 0, 1, 1],\n",
+    "[1, 1, 1, 1],\n",
+    "[1, 0, 0, 1],\n",
+    "[0, 1, 0, 1],\n",
+    "[0, 0, 0, 1],\n",
+    "]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1.2) Each object is assigned to a class \"0\" or \"1\". The assignements are as follows (cl):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "cl = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1.3) When do you think an object is assigned to class \"1\"?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1.4) Build a naive Bayes classifier. For this reason, complete the following function. This function should return a vector [p0, p1], where p0 and p1 are propabilities that an input object (obj) belongs to, respectively, class \"0\" and \"1\". In case if any $P(x = 0\\text{ or }1|CL = 0\\text{ or }1) = 0$, replace it with $0.01$. Remember that the sum of p0 and p1 should be equal to 1 (you can do that by normalizing p0 and p1 by dividing them by their sum)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "def getNaiveBayesProbabilities(obj, data, cl):\n",
+    "    p = [0.0, 0.0]\n",
+    "    # TODO\n",
+    "    return p"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1.6) Find objects which give a maximum probability for class \"0\" and \"1\". "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# TODO\n",
+    "print(getNaiveBayesProbabilities([], data, cl))\n",
+    "print(getNaiveBayesProbabilities([], data, cl))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Part 2: k-NN algorithm"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "2.1) In common.py, there is defined a Euclidean distance function (cm.getEuclideanDistance(A, B)): "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "#TEST\n",
+    "print(cm.getEuclideanDistance([0.0, 0.0], [0.0, 1.0]))\n",
+    "print(cm.getEuclideanDistance([0.0, 0.0], [1.0, 1.0]))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "2.2) Get test data set & display:<br>\n",
+    "- data = matrix n x m, n = the number of objects, m = the number of attributes<br>\n",
+    "- classified objects: [[list of objects (indices) being assigned to the fist class],[... to the second class],...,[... to the last class]]; note that the classes do not impose any preference order\n",
+    "- list of objects (indices) being not classified\n",
+    "\n",
+    "IMPORTANT: plot $\\rightarrow$ black squares represent non classified objects"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "DATA = cm.getTestDataSet()\n",
+    "CLASSIFIED = cm.getTestClassified()\n",
+    "NOT_CLASSIFIED = cm.getTestNotClassified()\n",
+    "cm.displayDataSet(plt, DATA, CLASSIFIED, NOT_CLASSIFIED) #plt = plot package; see the imports above\n",
+    "\n",
+    "### CLASS 1 = BLUE\n",
+    "### CLASS 2 = GREEN\n",
+    "### CLASS 3 = RED\n",
+    "### CLASS 4 = CYAN"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "2.3) k-NN implementation: Complete the below function. Use the \"non-weighted\" variant of k-NN.  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "def doKNN(K, DATA, CLASSIFIED, NOT_CLASSIFIED):\n",
+    "    ### COPY INPUT CLASSIFIED OBJECTS \n",
+    "    ### WHEN CLASSIFYING \"NOT_CLASSIFIED\" OBJECTS, UPDATE CL \n",
+    "    CL = CLASSIFIED.copy()\n",
+    "    ### For each index in NOT_CLASSIFIED, store here its corresponding (computed) class (in this exercise = 0, 1, or 2)\n",
+    "    ### Compute class base on only CLASSIFIED data\n",
+    "    ### One way to find the k-nearest object is sort all of object by distance and take top k elements\n",
+    "    UPDATE = []\n",
+    "    for IDX in NOT_CLASSIFIED:\n",
+    "    # TODO\n",
+    "    \n",
+    "    ################\n",
+    "    return CL\n",
+    "        \n",
+    "NEW_CLASSIFIED = doKNN(2, DATA, CLASSIFIED, NOT_CLASSIFIED)\n",
+    "cm.displayDataSet(plt, DATA, NEW_CLASSIFIED)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Part 3 - performance evaluation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "3.1) You are asked to evaluate the performance of k-NN (weighted variant) for different K. Firstly, run the below piece of code and analyze the data. Which class do you think is the most difficult/easiest to describe/characterize?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "DATA_2 = cm.getTest2DataSet()\n",
+    "CLASSIFIED_2 = cm.getTest2Classified()\n",
+    "cm.displayDataSet(plt, DATA_2, CLASSIFIED_2)\n",
+    "\n",
+    "### CLASS 1 = BLUE\n",
+    "### CLASS 2 = GREEN\n",
+    "### CLASS 3 = RED"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "3.2) To evaluate the performance of k-NN, you can check how well it predicts classes for new (not known previously) objects. For this reason, assume that you \"do not know\" the true class assignments for some random subset of objects from the data set. Firstly, you can generate some permutation of indices from 0 to 249 (one per object):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "idxs = [i for i in range(250)]\n",
+    "np.random.shuffle(idxs)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Then, the below piece of code constructs temporary variables CLASSIFIED_TRAIN and NOT_CLASSIFIED_TEST. CLASSIFIED_TRAIN contains information on assignements for the first 50% random objects determined by \"idxs\", while NOT_CLASSIFIED_TEST contains the remianing \"not classified\" object indices. Run the code below and observe that 50% of some uniformly distributed data points are not classified. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "CLASSIFIED_TRAIN = [[], [], []]\n",
+    "NOT_CLASSIFIED_TEST = []\n",
+    "LIM = int(len(DATA_2) * 0.5)\n",
+    "for i in range(LIM):\n",
+    "    if idxs[i] < 50: CLASSIFIED_TRAIN[0].append(idxs[i])\n",
+    "    elif idxs[i] < 150: CLASSIFIED_TRAIN[1].append(idxs[i])\n",
+    "    else: CLASSIFIED_TRAIN[2].append(idxs[i])\n",
+    "for i in range(LIM, 250):\n",
+    "    NOT_CLASSIFIED_TEST.append(idxs[i])\n",
+    "cm.displayDataSet(plt, DATA_2, CLASSIFIED_TRAIN, NOT_CLASSIFIED_TEST)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "3.3) Evaluate the performance of the weighted variant of k-NN for K = 1,3,5,7 and CLASSIFIED_TRAIN, NOT_CLASSIFIED_TEST data sets. For each K:<br>\n",
+    "- for each class, compute how many times an object has been correctly/incorrectly classified. E.g., if 10 objects are associated with the first class \"BLUE\" but k-NN classified correctly only 4 of them, the result is 4 (or 6 in case of incorrect assignments stat);<br>\n",
+    "- for each class, compute recall (number of correct assignments / total number of expected assignments, e.g., if 10 objects are associated with the first class \"BLUE\"  but k-NN classified correctly only 4 of them, recall for the first class is 40%);<br>  \n",
+    "\n",
+    "Which class got the best/the worst recall. Why?\n",
+    "What is the best K. Are there any significant differences?\n",
+    "You can use cm.displayCompareDataSet(plt, DATA_2, CLASSIFIED_2, CL) to check (display) which solutions were classified incorrectly. These are marked with squares. The background of these squares is appropriately selected according to the true (expected) assignment. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "### CLASS 1 = BLUE\n",
+    "### CLASS 2 = GREEN\n",
+    "### CLASS 3 = RED\n",
+    "\n",
+    "for K in [1,3,5,7]:\n",
+    "    CL = doKNN(K, DATA_2, CLASSIFIED_TRAIN, NOT_CLASSIFIED_TEST)\n",
+    "    print(K)\n",
+    "    CORRECTLY = [0,0,0]\n",
+    "    INCORRECTLY = [0,0,0]\n",
+    "    RECALL = [0,0,0]\n",
+    "    \n",
+    "    #TODO\n",
+    "            \n",
+    "    ### PRINT STATS\n",
+    "    print(CORRECTLY)\n",
+    "    print(INCORRECTLY)\n",
+    "    print(RECALL)\n",
+    "    ### DISPLAY\n",
+    "    cm.displayCompareDataSet(plt, DATA_2, CLASSIFIED_2, CL)      "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "jupyter": {
+     "outputs_hidden": true
+    }
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
